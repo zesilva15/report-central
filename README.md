@@ -14,17 +14,13 @@ Really simple architecture, with a frontend, two APIs, a load balancer, a Minio 
 flowchart LR
     minio[(Minio)]
     planet[(PlanetScale)]
-    api1[API]
-    api2[API]
+    api[API Stateless]
     loadbalancer[Load Balancer]
     frontend[Frontend]
     loadbalancer --> frontend
-    frontend <--> api1
-    frontend <--> api2
-    api1 <--> planet
-    api2 <--> planet
-    api1 <--> minio
-    api2 <--> minio
+    frontend <--> api
+    api <--> |files| minio
+    api <--> |metadata| planet
     user((User)) --> loadbalancer
 ```
 
@@ -36,3 +32,13 @@ An S3 compatible storage is needed to run the app, so if not using minio configu
 ## Metrics
 
 Metrics are exposed in the `/metrics` endpoint, and can be scraped by Prometheus, more information in the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/getting_started/) and in [Metrics doc](./docs/metrics.md).
+
+## Roadmap
+
+- [ ] CI
+- [ ] Implement Fiber API
+- [ ] React.js frontend
+- [ ] /metrics exposure
+- [ ] User authentication
+- [ ] RBAC for artifact access
+- [ ] Helm chart
