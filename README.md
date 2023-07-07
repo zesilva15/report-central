@@ -19,12 +19,12 @@ flowchart LR
     loadbalancer[Load Balancer]
     frontend[Frontend]
     loadbalancer --> frontend
-    frontend --> api1
-    frontend --> api2
-    api1 --> planet
-    api2 --> planet
-    api1 --> minio
-    api2 --> minio
+    frontend <--> api1
+    frontend <--> api2
+    api1 <--> planet
+    api2 <--> planet
+    api1 <--> minio
+    api2 <--> minio
     user((User)) --> loadbalancer
 ```
 
