@@ -14,14 +14,15 @@ Really simple architecture, with a frontend, two APIs, a load balancer, a Minio 
 flowchart LR
     minio[(Minio)]
     planet[(PlanetScale)]
-    api[API Stateless]
-    loadbalancer[Load Balancer]
+    api[Stateless API]
+    loadbalancer[API Gateway]
     frontend[Frontend]
     loadbalancer --> frontend
     frontend <--> api
     api <--> |files| minio
     api <--> |metadata| planet
     user((User)) --> loadbalancer
+    loadbalancer --> api
 ```
 
 ## Deployment
