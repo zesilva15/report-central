@@ -8,12 +8,12 @@ Artifact information and respective reports are stored in a PlanetScale Database
 Can be run locally or deployed to a Kubernetes cluster, as an Helm chart is provided.
 
 ## Architecture
-Really simple architecture, with a frontend, two APIs, a load balancer, a Minio instance and a PlanetScale instance.
+Really simple architecture, with a frontend, two APIs, a load balancer, a Minio instance and a MySQL instance.
 
 ```mermaid
 flowchart LR
     minio[(Minio)]
-    planet[(PlanetScale)]
+    planet[(MySQL)]
     api[Stateless API]
     loadbalancer[API Gateway]
     frontend[Frontend]
@@ -43,3 +43,10 @@ Metrics are exposed in the `/metrics` endpoint, and can be scraped by Prometheus
 - [ ] User authentication
 - [ ] RBAC for artifact access
 - [ ] Helm chart
+
+
+## Running locally
+
+In order to run locally you'll need to have a MySQL instance running, and a Minio instance running.
+You can use the provided [docker-compose file](./compose/infra.yaml) files to run both.
+Be sure to create a **.env** file with the correct credentials for the database and the Minio instance.
