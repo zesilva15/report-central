@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	"github.com/zesilva15/report-api/database"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	database.Connect()
 	app := fiber.New()
 	app.Get("/", welcome)
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))

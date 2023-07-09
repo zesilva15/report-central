@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/zesilva15/report-api/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -24,6 +25,6 @@ func Connect() {
 	log.Println("Database connected")
 	database.Logger = logger.Default.LogMode(logger.Info)
 	log.Println("Database running migrations")
-
+	database.AutoMigrate(&models.Artifact{}, &models.Report{})
 	Database = DBInstance{Db: database}
 }
