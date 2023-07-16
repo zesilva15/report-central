@@ -29,4 +29,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", welcome)
 	// Artifact Endpoints
 	app.Post("/artifacts", routes.CreateArtifact)
+	app.Get("/artifacts", routes.GetArtifacts)
+	app.Get("/artifacts/:id", routes.GetArtifact)
+	app.Patch("/artifacts/:id", routes.UpdateArtifact)
 }
