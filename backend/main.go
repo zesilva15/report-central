@@ -16,10 +16,16 @@ func main() {
 	}
 	database.Connect()
 	app := fiber.New()
-	app.Get("/", welcome)
+	setupRoutes(app)
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
 
 func welcome(c *fiber.Ctx) error {
 	return c.SendString("Welcome to Fiber!")
+}
+
+func setupRoutes(app *fiber.App) {
+	app.Get("/", welcome)
+	// Artifact Endpoints
+	app.Post("/artifacts", routes.createArtifact)
 }
