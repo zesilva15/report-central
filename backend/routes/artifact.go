@@ -11,11 +11,11 @@ type Artifact struct {
 	Name string `json:"name"`
 }
 
-func createResponseArtifact(artifactModel models.Artifact) Artifact {
+func CreateResponseArtifact(artifactModel models.Artifact) Artifact {
 	return Artifact{ID: artifactModel.ID, Name: artifactModel.Name}
 }
 
-func createArtifact(c *fiber.Ctx) error {
+func CreateArtifact(c *fiber.Ctx) error {
 	var artifact models.Artifact
 
 	if err := c.BodyParser(&artifact); err != nil {
@@ -23,6 +23,6 @@ func createArtifact(c *fiber.Ctx) error {
 	}
 
 	database.Database.Db.Create(&artifact)
-	response := createResponseArtifact(artifact)
+	response := CreateResponseArtifact(artifact)
 	return c.Status(200).JSON(response)
 }
