@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"github.com/zesilva15/report-api/database"
+	"github.com/zesilva15/report-api/routes"
 )
 
 func main() {
@@ -27,5 +28,8 @@ func welcome(c *fiber.Ctx) error {
 func setupRoutes(app *fiber.App) {
 	app.Get("/", welcome)
 	// Artifact Endpoints
-	app.Post("/artifacts", routes.createArtifact)
+	app.Post("/artifacts", routes.CreateArtifact)
+	app.Get("/artifacts", routes.GetArtifacts)
+	app.Get("/artifacts/:id", routes.GetArtifact)
+	app.Patch("/artifacts/:id", routes.UpdateArtifact)
 }
