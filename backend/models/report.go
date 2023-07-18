@@ -8,6 +8,6 @@ type Report struct {
 	Type          string   `json:"type"`
 	Status        string   `json:"status"`
 	File          string   `json:"file"`
-	ArtifactRefer uint     `json:"artifact_id"`
+	ArtifactRefer int      `json:"artifact_id"`
 	Artifact      Artifact `gorm:"foreignKey:ArtifactRefer"`
 }

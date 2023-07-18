@@ -33,4 +33,6 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/artifacts/:id", routes.GetArtifact)
 	app.Patch("/artifacts/:id", routes.UpdateArtifact)
 	app.Delete("/artifacts/:id", routes.DeleteArtifact)
+	// reports endpoints
+	app.Post("/reports", routes.CreateReport)
 }
