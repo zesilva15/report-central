@@ -29,7 +29,7 @@ func CreateArtifact(c *fiber.Ctx) error {
 	var artifact models.Artifact
 
 	if err := c.BodyParser(&artifact); err != nil {
-		return c.Status(400).JSON(err.Error())
+		return c.Status(400).JSON(fiber.ErrBadRequest)
 	}
 
 	database.Database.Db.Create(&artifact)
@@ -54,10 +54,10 @@ func GetArtifact(c *fiber.Ctx) error {
 	var artifact models.Artifact
 
 	if err != nil {
-		return c.Status(400).JSON(err.Error())
+		return c.Status(400).JSON(fiber.ErrBadRequest)
 	}
 	if err := findArtifact(id, &artifact); err != nil {
-		return c.Status(404).JSON(err.Error())
+		return c.Status(404).JSON(fiber.ErrNotFound)
 	}
 	response := CreateResponseArtifact(artifact)
 	return c.Status(200).JSON(response)
@@ -68,20 +68,35 @@ func UpdateArtifact(c *fiber.Ctx) error {
 	var artifact models.Artifact
 
 	if err != nil {
-		return c.Status(400).JSON(err.Error())
+		return c.Status(400).JSON(fiber.ErrBadRequest)
 	}
 	if err := findArtifact(id, &artifact); err != nil {
-		return c.Status(404).JSON(err.Error())
+		return c.Status(404).JSON(fiber.ErrNotFound)
 	}
 	type UpdateArtifact struct {
 		Name string `json:"name"`
 	}
 	var updateData UpdateArtifact
 	if err := c.BodyParser(&updateData); err != nil {
-		return c.Status(500).JSON(err.Error())
+		return c.Status(500).JSON(fiber.ErrInternalServerError)
 	}
 	artifact.Name = updateData.Name
 	database.Database.Db.Save(&artifact)
 	response := CreateResponseArtifact(artifact)
 	return c.Status(200).JSON(response)
+}
+
+func DeleteArtifact(c *fiber.Ctx) error {
+	id, err := c.ParamsInt("id")
+	var artifact models.Artifact
+	if err != nil {
+		return c.Status(400).JSON(fiber.ErrBadRequest)
+	}
+	if err := findArtifact(id, &artifact); err != nil {
+		return c.Status(404).JSON(fiber.ErrNotFound)
+	}
+	if err := database.Database.Db.Delete(&artifact).Error; err != nil {
+		return c.Status(500).JSON(fiber.ErrInternalServerError)
+	}
+	return c.Status(200).SendString("Artifact deleted")
 }
