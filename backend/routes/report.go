@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"encoding/base64"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -22,7 +23,7 @@ func CreateResponseReport(artifact Artifact, report models.Report) Report {
 }
 
 func validateBody(report models.Report) error {
-	if report.Type == "" || report.Status == "" {
+	if report.Type == "" || report.Status == "" || report.File == "" {
 		return fiber.ErrBadRequest
 	}
 	return nil
@@ -43,7 +44,16 @@ func CreateReport(c *fiber.Ctx) error {
 	if err := database.Database.Db.Create(&report).Error; err != nil {
 		return c.Status(500).JSON(fiber.ErrInternalServerError)
 	}
+	report.File = base64toFile(report.File)
 	responseArtifact := CreateResponseArtifact(artifact)
 	response := CreateResponseReport(responseArtifact, report)
 	return c.Status(201).JSON(response)
+}
+
+func base64toFile(file string) string {
+	decodedData, err := base64.StdEncoding.DecodeString(file)
+	if err != nil {
+		return ""
+	}
+	return string(decodedData)
 }
