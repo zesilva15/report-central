@@ -5,7 +5,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/zesilva15/report-api/database"
-	"github.com/zesilva15/report-api/minio"
 	"github.com/zesilva15/report-api/models"
 )
 
@@ -46,6 +45,5 @@ func CreateReport(c *fiber.Ctx) error {
 	}
 	responseArtifact := CreateResponseArtifact(artifact)
 	response := CreateResponseReport(responseArtifact, report)
-	minio.Upload()
 	return c.Status(201).JSON(response)
 }
