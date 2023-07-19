@@ -1,0 +1,390 @@
+{
+  "SchemaVersion": 2,
+  "ArtifactName": "golang:alpine",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {
+      "Family": "alpine",
+      "Name": "3.18.2"
+    },
+    "ImageID": "sha256:bf7808b93c00e08aff649e1a9a8a5ec286823750b0065c95b96a4fd13f2b33c6",
+    "DiffIDs": [
+      "sha256:78a822fe2a2d2c84f3de4a403188c45f623017d6a4521d23047c9fbb0801794c",
+      "sha256:f68373c1ba86dd82a20a46a3d8d5362c73362cb5304c61e2ae810da5f192b863",
+      "sha256:4fa632a806c81b03a5fa644ffbbb79e258d8a4ce74c685788e8125392ed82dce",
+      "sha256:d5be529c87d6d3f11cce09ebc1e45ca5e9e473154907adfacbcedf6c78148add"
+    ],
+    "RepoTags": [
+      "golang:alpine"
+    ],
+    "RepoDigests": [
+      "golang@sha256:7839c9f01b5502d7cb5198b2c032857023424470b3e31ae46a8261ffca72912a"
+    ],
+    "ImageConfig": {
+      "architecture": "amd64",
+      "container": "a75657eaf9f9f439d38da2389b9d6c9785d98536a10ae4c820dfc31877dd7786",
+      "created": "2023-07-13T20:30:32.924160546Z",
+      "docker_version": "20.10.23",
+      "history": [
+        {
+          "created": "2023-06-14T20:41:58Z",
+          "created_by": "/bin/sh -c #(nop) ADD file:1da756d12551a0e3e793e02ef87432d69d4968937bd11bed0af215db19dd94cd in / "
+        },
+        {
+          "created": "2023-06-14T20:41:59Z",
+          "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/sh\"]",
+          "empty_layer": true
+        },
+        {
+          "created": "2023-06-14T22:35:02Z",
+          "created_by": "/bin/sh -c apk add --no-cache ca-certificates"
+        },
+        {
+          "created": "2023-06-14T22:35:02Z",
+          "created_by": "/bin/sh -c #(nop)  ENV PATH=/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "empty_layer": true
+        },
+        {
+          "created": "2023-07-11T19:20:25Z",
+          "created_by": "/bin/sh -c #(nop)  ENV GOLANG_VERSION=1.20.6",
+          "empty_layer": true
+        },
+        {
+          "created": "2023-07-13T20:30:31Z",
+          "created_by": "/bin/sh -c set -eux; \tapk add --no-cache --virtual .fetch-deps gnupg; \tarch=\"$(apk --print-arch)\"; \turl=; \tcase \"$arch\" in \t\t'x86_64') \t\t\texport GOAMD64='v1' GOARCH='amd64' GOOS='linux'; \t\t\t;; \t\t'armhf') \t\t\texport GOARCH='arm' GOARM='6' GOOS='linux'; \t\t\t;; \t\t'armv7') \t\t\texport GOARCH='arm' GOARM='7' GOOS='linux'; \t\t\t;; \t\t'aarch64') \t\t\texport GOARCH='arm64' GOOS='linux'; \t\t\t;; \t\t'x86') \t\t\texport GO386='softfloat' GOARCH='386' GOOS='linux'; \t\t\t;; \t\t'ppc64le') \t\t\texport GOARCH='ppc64le' GOOS='linux'; \t\t\t;; \t\t'riscv64') \t\t\texport GOARCH='riscv64' GOOS='linux'; \t\t\t;; \t\t's390x') \t\t\texport GOARCH='s390x' GOOS='linux'; \t\t\t;; \t\t*) echo \u003e\u00262 \"error: unsupported architecture '$arch' (likely packaging update needed)\"; exit 1 ;; \tesac; \tbuild=; \tif [ -z \"$url\" ]; then \t\tbuild=1; \t\turl='https://dl.google.com/go/go1.20.6.src.tar.gz'; \t\tsha256='62ee5bc6fb55b8bae8f705e0cb8df86d6453626b4ecf93279e2867092e0b7f70'; \tfi; \t\twget -O go.tgz.asc \"$url.asc\"; \twget -O go.tgz \"$url\"; \techo \"$sha256 *go.tgz\" | sha256sum -c -; \t\tGNUPGHOME=\"$(mktemp -d)\"; export GNUPGHOME; \tgpg --batch --keyserver keyserver.ubuntu.com --recv-keys 'EB4C 1BFD 4F04 2F6D DDCC  EC91 7721 F63B D38B 4796'; \tgpg --batch --keyserver keyserver.ubuntu.com --recv-keys '2F52 8D36 D67B 69ED F998  D857 78BD 6547 3CB3 BD13'; \tgpg --batch --verify go.tgz.asc go.tgz; \tgpgconf --kill all; \trm -rf \"$GNUPGHOME\" go.tgz.asc; \t\ttar -C /usr/local -xzf go.tgz; \trm go.tgz; \t\tif [ -n \"$build\" ]; then \t\tapk add --no-cache --virtual .build-deps \t\t\tbash \t\t\tgcc \t\t\tgo \t\t\tmusl-dev \t\t; \t\t\t\texport GOCACHE='/tmp/gocache'; \t\t\t\t( \t\t\tcd /usr/local/go/src; \t\t\texport GOROOT_BOOTSTRAP=\"$(go env GOROOT)\" GOHOSTOS=\"$GOOS\" GOHOSTARCH=\"$GOARCH\"; \t\t\tif [ \"${GOARCH:-}\" = '386' ]; then \t\t\t\texport CGO_CFLAGS='-fno-stack-protector'; \t\t\tfi; \t\t\t./make.bash; \t\t); \t\t\t\tapk del --no-network .build-deps; \t\t\t\trm -rf \t\t\t/usr/local/go/pkg/*/cmd \t\t\t/usr/local/go/pkg/bootstrap \t\t\t/usr/local/go/pkg/obj \t\t\t/usr/local/go/pkg/tool/*/api \t\t\t/usr/local/go/pkg/tool/*/go_bootstrap \t\t\t/usr/local/go/src/cmd/dist/dist \t\t\t\"$GOCACHE\" \t\t; \tfi; \t\tapk del --no-network .fetch-deps; \t\tgo version"
+        },
+        {
+          "created": "2023-07-13T20:30:32Z",
+          "created_by": "/bin/sh -c #(nop)  ENV GOPATH=/go",
+          "empty_layer": true
+        },
+        {
+          "created": "2023-07-13T20:30:32Z",
+          "created_by": "/bin/sh -c #(nop)  ENV PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "empty_layer": true
+        },
+        {
+          "created": "2023-07-13T20:30:32Z",
+          "created_by": "/bin/sh -c mkdir -p \"$GOPATH/src\" \"$GOPATH/bin\" \u0026\u0026 chmod -R 1777 \"$GOPATH\""
+        },
+        {
+          "created": "2023-07-13T20:30:32Z",
+          "created_by": "/bin/sh -c #(nop) WORKDIR /go",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:78a822fe2a2d2c84f3de4a403188c45f623017d6a4521d23047c9fbb0801794c",
+          "sha256:f68373c1ba86dd82a20a46a3d8d5362c73362cb5304c61e2ae810da5f192b863",
+          "sha256:4fa632a806c81b03a5fa644ffbbb79e258d8a4ce74c685788e8125392ed82dce",
+          "sha256:d5be529c87d6d3f11cce09ebc1e45ca5e9e473154907adfacbcedf6c78148add"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "/bin/sh"
+        ],
+        "Env": [
+          "PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "GOLANG_VERSION=1.20.6",
+          "GOPATH=/go"
+        ],
+        "Image": "sha256:aae0e1307c760e322b63e4f710f1e1db1e812676abf615328326cc9bb35a1b58",
+        "WorkingDir": "/go"
+      }
+    }
+  },
+  "Results": [
+    {
+      "Target": "golang:alpine (alpine 3.18.2)",
+      "Class": "os-pkgs",
+      "Type": "alpine",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2023-2975",
+          "PkgID": "libcrypto3@3.1.1-r1",
+          "PkgName": "libcrypto3",
+          "InstalledVersion": "3.1.1-r1",
+          "FixedVersion": "3.1.1-r2",
+          "Layer": {
+            "DiffID": "sha256:78a822fe2a2d2c84f3de4a403188c45f623017d6a4521d23047c9fbb0801794c"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-2975",
+          "DataSource": {
+            "ID": "alpine",
+            "Name": "Alpine Secdb",
+            "URL": "https://secdb.alpinelinux.org/"
+          },
+          "Title": "AES-SIV cipher implementation contains a bug that causes it to ignore empty associated data entries",
+          "Description": "Issue summary: The AES-SIV cipher implementation contains a bug that causes\nit to ignore empty associated data entries which are unauthenticated as\na consequence.\n\nImpact summary: Applications that use the AES-SIV algorithm and want to\nauthenticate empty data entries as associated data can be mislead by removing\nadding or reordering such empty entries as these are ignored by the OpenSSL\nimplementation. We are currently unaware of any such applications.\n\nThe AES-SIV algorithm allows for authentication of multiple associated\ndata entries along with the encryption. To authenticate empty data the\napplication has to call EVP_EncryptUpdate() (or EVP_CipherUpdate()) with\nNULL pointer as the output buffer and 0 as the input buffer length.\nThe AES-SIV implementation in OpenSSL just returns success for such a call\ninstead of performing the associated data authentication operation.\nThe empty data thus will not be authenticated.\n\nAs this issue does not affect non-empty associated data authentication and\nwe expect it to be rare for an application to use empty associated data\nentries this is qualified as Low severity issue.",
+          "Severity": "MEDIUM",
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2023/07/15/1",
+            "https://access.redhat.com/security/cve/CVE-2023-2975",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-2975",
+            "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=00e2f5eea29994d19293ec4e8c8775ba73678598",
+            "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=6a83f0c958811f07e0d11dfc6b5a6a98edfd5bdc",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-2975",
+            "https://www.cve.org/CVERecord?id=CVE-2023-2975",
+            "https://www.openssl.org/news/secadv/20230714.txt"
+          ],
+          "PublishedDate": "2023-07-14T12:15:00Z",
+          "LastModifiedDate": "2023-07-15T13:15:00Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2023-2975",
+          "PkgID": "libssl3@3.1.1-r1",
+          "PkgName": "libssl3",
+          "InstalledVersion": "3.1.1-r1",
+          "FixedVersion": "3.1.1-r2",
+          "Layer": {
+            "DiffID": "sha256:78a822fe2a2d2c84f3de4a403188c45f623017d6a4521d23047c9fbb0801794c"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2023-2975",
+          "DataSource": {
+            "ID": "alpine",
+            "Name": "Alpine Secdb",
+            "URL": "https://secdb.alpinelinux.org/"
+          },
+          "Title": "AES-SIV cipher implementation contains a bug that causes it to ignore empty associated data entries",
+          "Description": "Issue summary: The AES-SIV cipher implementation contains a bug that causes\nit to ignore empty associated data entries which are unauthenticated as\na consequence.\n\nImpact summary: Applications that use the AES-SIV algorithm and want to\nauthenticate empty data entries as associated data can be mislead by removing\nadding or reordering such empty entries as these are ignored by the OpenSSL\nimplementation. We are currently unaware of any such applications.\n\nThe AES-SIV algorithm allows for authentication of multiple associated\ndata entries along with the encryption. To authenticate empty data the\napplication has to call EVP_EncryptUpdate() (or EVP_CipherUpdate()) with\nNULL pointer as the output buffer and 0 as the input buffer length.\nThe AES-SIV implementation in OpenSSL just returns success for such a call\ninstead of performing the associated data authentication operation.\nThe empty data thus will not be authenticated.\n\nAs this issue does not affect non-empty associated data authentication and\nwe expect it to be rare for an application to use empty associated data\nentries this is qualified as Low severity issue.",
+          "Severity": "MEDIUM",
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2023/07/15/1",
+            "https://access.redhat.com/security/cve/CVE-2023-2975",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-2975",
+            "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=00e2f5eea29994d19293ec4e8c8775ba73678598",
+            "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=6a83f0c958811f07e0d11dfc6b5a6a98edfd5bdc",
+            "https://nvd.nist.gov/vuln/detail/CVE-2023-2975",
+            "https://www.cve.org/CVERecord?id=CVE-2023-2975",
+            "https://www.openssl.org/news/secadv/20230714.txt"
+          ],
+          "PublishedDate": "2023-07-14T12:15:00Z",
+          "LastModifiedDate": "2023-07-15T13:15:00Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/local/go/src/crypto/internal/bigmod/_asm/go.mod",
+      "Class": "lang-pkgs",
+      "Type": "gomod",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2022-29526",
+          "PkgID": "golang.org/x/sys@v0.0.0-20211030160813-b3129d9d1021",
+          "PkgName": "golang.org/x/sys",
+          "InstalledVersion": "0.0.0-20211030160813-b3129d9d1021",
+          "FixedVersion": "0.0.0-20220412211240-33da011f77ad",
+          "Layer": {
+            "DiffID": "sha256:4fa632a806c81b03a5fa644ffbbb79e258d8a4ce74c685788e8125392ed82dce"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-29526",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Go",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Ago"
+          },
+          "Title": "faccessat checks wrong group",
+          "Description": "Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Assignment. When called with a non-zero flags parameter, the Faccessat function could incorrectly report that a file is accessible.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-269"
+          ],
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+              "V3Score": 5.3
+            },
+            "nvd": {
+              "V2Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N",
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+              "V2Score": 5,
+              "V3Score": 5.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-29526",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-29526",
+            "https://github.com/advisories/GHSA-p782-xgp4-8hr8",
+            "https://github.com/golang/go/commit/f66925e854e71e0c54b581885380a490d7afa30c",
+            "https://github.com/golang/go/issues/52313",
+            "https://go.dev/cl/399539",
+            "https://go.dev/cl/400074",
+            "https://go.dev/issue/52313",
+            "https://groups.google.com/g/golang-announce",
+            "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU",
+            "https://linux.oracle.com/cve/CVE-2022-29526.html",
+            "https://linux.oracle.com/errata/ELSA-2022-5337.html",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Q6GE5EQGE4L2KRVGW4T75QVIYAXCLO5X/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RQXU752ALW53OJAF5MG3WMR5CCZVLWW6/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Z55VUVGO7E5PJFXIOVAY373NZRHBNCI5/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZY2SLWOQR4ZURQ7UBRZ7JIX6H6F5JHJR/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-29526",
+            "https://pkg.go.dev/vuln/GO-2022-0493",
+            "https://security.gentoo.org/glsa/202208-02",
+            "https://security.netapp.com/advisory/ntap-20220729-0001/",
+            "https://ubuntu.com/security/notices/USN-6038-1",
+            "https://www.cve.org/CVERecord?id=CVE-2022-29526"
+          ],
+          "PublishedDate": "2022-06-23T17:15:00Z",
+          "LastModifiedDate": "2022-08-19T12:50:00Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/local/go/src/crypto/internal/edwards25519/field/_asm/go.mod",
+      "Class": "lang-pkgs",
+      "Type": "gomod",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2022-29526",
+          "PkgID": "golang.org/x/sys@v0.0.0-20211030160813-b3129d9d1021",
+          "PkgName": "golang.org/x/sys",
+          "InstalledVersion": "0.0.0-20211030160813-b3129d9d1021",
+          "FixedVersion": "0.0.0-20220412211240-33da011f77ad",
+          "Layer": {
+            "DiffID": "sha256:4fa632a806c81b03a5fa644ffbbb79e258d8a4ce74c685788e8125392ed82dce"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-29526",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Go",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Ago"
+          },
+          "Title": "faccessat checks wrong group",
+          "Description": "Go before 1.17.10 and 1.18.x before 1.18.2 has Incorrect Privilege Assignment. When called with a non-zero flags parameter, the Faccessat function could incorrectly report that a file is accessible.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-269"
+          ],
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+              "V3Score": 5.3
+            },
+            "nvd": {
+              "V2Vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N",
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+              "V2Score": 5,
+              "V3Score": 5.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-29526",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-29526",
+            "https://github.com/advisories/GHSA-p782-xgp4-8hr8",
+            "https://github.com/golang/go/commit/f66925e854e71e0c54b581885380a490d7afa30c",
+            "https://github.com/golang/go/issues/52313",
+            "https://go.dev/cl/399539",
+            "https://go.dev/cl/400074",
+            "https://go.dev/issue/52313",
+            "https://groups.google.com/g/golang-announce",
+            "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU",
+            "https://linux.oracle.com/cve/CVE-2022-29526.html",
+            "https://linux.oracle.com/errata/ELSA-2022-5337.html",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Q6GE5EQGE4L2KRVGW4T75QVIYAXCLO5X/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RQXU752ALW53OJAF5MG3WMR5CCZVLWW6/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Z55VUVGO7E5PJFXIOVAY373NZRHBNCI5/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZY2SLWOQR4ZURQ7UBRZ7JIX6H6F5JHJR/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-29526",
+            "https://pkg.go.dev/vuln/GO-2022-0493",
+            "https://security.gentoo.org/glsa/202208-02",
+            "https://security.netapp.com/advisory/ntap-20220729-0001/",
+            "https://ubuntu.com/security/notices/USN-6038-1",
+            "https://www.cve.org/CVERecord?id=CVE-2022-29526"
+          ],
+          "PublishedDate": "2022-06-23T17:15:00Z",
+          "LastModifiedDate": "2022-08-19T12:50:00Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/local/go/src/go.mod",
+      "Class": "lang-pkgs",
+      "Type": "gomod",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2022-41723",
+          "PkgID": "golang.org/x/net@v0.4.1-0.20230214201333-88ed8ca3307d",
+          "PkgName": "golang.org/x/net",
+          "InstalledVersion": "0.4.1-0.20230214201333-88ed8ca3307d",
+          "FixedVersion": "0.7.0",
+          "Layer": {
+            "DiffID": "sha256:4fa632a806c81b03a5fa644ffbbb79e258d8a4ce74c685788e8125392ed82dce"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-41723",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Go",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Ago"
+          },
+          "Title": "avoid quadratic complexity in HPACK decoding",
+          "Description": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-41723",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-41723",
+            "https://github.com/advisories/GHSA-vvpx-j8f3-3w6h",
+            "https://go.dev/cl/468135",
+            "https://go.dev/cl/468295",
+            "https://go.dev/issue/57855",
+            "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4MA5XS5DAOJ5PKKNG5TUXKPQOFHT5VBC/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RGW7GE2Z32ZT47UFAQFDRQE33B7Q7LMT/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/RLBQ3A7ROLEQXQLXFDLNJ7MYPKG5GULE/",
+            "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/XX3IMUTZKRQ73PBZM4E2JP4BKYH4C6XE/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-41723",
+            "https://pkg.go.dev/vuln/GO-2023-1571",
+            "https://vuln.go.dev/ID/GO-2023-1571.json",
+            "https://www.cve.org/CVERecord?id=CVE-2022-41723"
+          ],
+          "PublishedDate": "2023-02-28T18:15:00Z",
+          "LastModifiedDate": "2023-05-16T10:50:00Z"
+        }
+      ]
+    }
+  ]
+}
