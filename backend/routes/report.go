@@ -47,11 +47,13 @@ func CreateReport(c *fiber.Ctx) error {
 	if err := findArtifact(report.ArtifactRefer, &artifact); err != nil {
 		return c.Status(404).JSON(fiber.ErrNotFound)
 	}
+	report.File = base64toFile(report.File, artifact.Name, report.Type)
+	if report.File == "" {
+		return c.Status(500).JSON(fiber.ErrInternalServerError)
+	}
 	if err := database.Database.Db.Create(&report).Error; err != nil {
 		return c.Status(500).JSON(fiber.ErrInternalServerError)
 	}
-	report.File = base64toFile(report.File, artifact.Name, report.Type)
-
 	responseArtifact := CreateResponseArtifact(artifact)
 	response := CreateResponseReport(responseArtifact, report)
 	return c.Status(201).JSON(response)
@@ -95,5 +97,10 @@ func uploadToMinio(filename string, artifactName string, reportType string) stri
 		return ""
 	}
 	log.Printf("Successfully uploaded %s of size %d\n", destinationFilename, info.Size)
+	err = os.Remove(filename)
+	if err != nil {
+		log.Fatalln(err)
+		return ""
+	}
 	return destinationFilename
 }
